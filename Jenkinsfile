@@ -8,12 +8,6 @@ pipeline {
 
     stages {
 
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/Tomin-sahu/devops-demo.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 sh "docker build -t ${DOCKER_IMAGE}:${TAG} ."
@@ -47,7 +41,7 @@ pipeline {
 
     post {
         success {
-            echo 'Deployment Successful!'
+            echo 'Pipeline Successful!'
         }
         failure {
             echo 'Pipeline Failed!'
