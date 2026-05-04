@@ -16,9 +16,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    sh "docker build -t $DOCKER_IMAGE:$TAG ."
-                }
+                sh "docker build -t ${DOCKER_IMAGE}:${TAG} ."
             }
         }
 
@@ -26,8 +24,8 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-credentials',
-                    usernameVariable: 'sahutomin94@gmail.com',
-                    passwordVariable: 'Nseit$2022'
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
                 )]) {
                     sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
                 }
@@ -36,7 +34,7 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                sh "docker push $DOCKER_IMAGE:$TAG"
+                sh "docker push ${DOCKER_IMAGE}:${TAG}"
             }
         }
 
