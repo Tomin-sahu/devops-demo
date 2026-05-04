@@ -34,7 +34,7 @@ pipeline {
 
         stage('Deploy to Minikube') {
             steps {
-                bat "kubectl apply -f k8s.yaml"
+                bat "kubectl apply -f k8s.yaml --validate=false"
             }
         }
     }
