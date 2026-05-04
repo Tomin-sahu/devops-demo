@@ -10,31 +10,31 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${DOCKER_IMAGE}:${TAG} ."
+                bat "docker build -t %DOCKER_IMAGE%:%TAG% ."
             }
         }
 
         stage('Login to Docker Hub') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-credentials',
-                    usernameVariable: 'DOCKER_USER',
-                    passwordVariable: 'DOCKER_PASS'
+                    credentialsId: 'sahutomin94@gmail.com',
+                    usernameVariable: 'tominsahu',
+                    passwordVariable: 'Nseit$2022'
                 )]) {
-                    sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
+                    bat "echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin"
                 }
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                sh "docker push ${DOCKER_IMAGE}:${TAG}"
+                bat "docker push %DOCKER_IMAGE%:%TAG%"
             }
         }
 
         stage('Deploy to Minikube') {
             steps {
-                sh "kubectl apply -f k8s.yaml"
+                bat "kubectl apply -f k8s.yaml"
             }
         }
     }
