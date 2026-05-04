@@ -17,9 +17,9 @@ pipeline {
         stage('Login to Docker Hub') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'sahutomin94@gmail.com',
-                    usernameVariable: 'tominsahu',
-                    passwordVariable: 'Nseit$2022'
+                    credentialsId: 'dockerhub-credentials',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
                 )]) {
                     bat "echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin"
                 }
