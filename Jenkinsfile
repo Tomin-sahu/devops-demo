@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "tominsahu/devops-demo"
         TAG = "latest"
+        KUBECONFIG = "C:\\Users\\<your-username>\\.kube\\config"
     }
 
     stages {
@@ -17,7 +18,7 @@ pipeline {
         stage('Login to Docker Hub') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'sahutomin94@gmail.com',
+                    credentialsId: 'docker-cred',
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
@@ -32,9 +33,16 @@ pipeline {
             }
         }
 
+        stage('Check Kubernetes Connection') {
+            steps {
+                bat "kubectl cluster-info"
+                bat "kubectl get nodes"
+            }
+        }
+
         stage('Deploy to Minikube') {
             steps {
-                bat "kubectl apply -f k8s.yaml --validate=false"
+                bat "kubectl apply -f k8s.yaml"
             }
         }
     }
