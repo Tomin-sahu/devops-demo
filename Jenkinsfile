@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "tominsahu/devops-demo"
         TAG = "latest"
-        KUBECONFIG = "C:\\Users\\<your-username>\\.kube\\config"
+        KUBECONFIG = "C:\\Users\\Dell\\.kube\\config"
     }
 
     stages {
