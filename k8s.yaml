@@ -13,10 +13,11 @@ spec:
         app: devops-demo
     spec:
       containers:
-      - name: devops-demo
-        image: tominsahu/devops-demo:latest
-        ports:
-        - containerPort: 80
+        - name: devops-demo
+          image: tominsahu/devops-demo:latest
+          ports:
+            - containerPort: 80
+
 ---
 apiVersion: v1
 kind: Service
@@ -27,6 +28,6 @@ spec:
   selector:
     app: devops-demo
   ports:
-  - port: 80
-    targetPort: 80
-    nodePort: 30007
+    - port: 80
+      targetPort: 80
+      nodePort: 30007
